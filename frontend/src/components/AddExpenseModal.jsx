@@ -8,83 +8,24 @@ function AddExpenseModal({ isOpen, onClose, onSave }) {
 
   if (!isOpen) return null;
 
-  const handleSave = () => {
-    if (!amount || !category || !date) return;
-
-    onSave({
-      amount,
-      category,
-      description,
-      date,
-    });
-
-    // clear form
-    setAmount("");
-    setCategory("");
-    setDescription("");
-    setDate("");
-
-    onClose();
-  };
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">
-          Add Expense
-        </h2>
-
-        <div className="space-y-4">
-          <input
-            type="number"
-            placeholder="Amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
-
-          <input
-            type="text"
-            placeholder="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
-
-          <input
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
-
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
-
-        <div className="flex justify-end gap-3 mt-6">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 border rounded"
-          >
-            Cancel
-          </button>
-
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 bg-blue-600 text-white rounded"
-          >
-            Save
-          </button>
-        </div>
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
+      <div className="bg-white p-6 w-80">
+        <input type="number" placeholder="Amount" onChange={e=>setAmount(e.target.value)} className="border p-2 w-full mb-2"/>
+        <input placeholder="Category" onChange={e=>setCategory(e.target.value)} className="border p-2 w-full mb-2"/>
+        <input placeholder="Description" onChange={e=>setDescription(e.target.value)} className="border p-2 w-full mb-2"/>
+        <input type="date" onChange={e=>setDate(e.target.value)} className="border p-2 w-full mb-4"/>
+        <button
+          className="bg-blue-600 text-white w-full p-2"
+          onClick={() => {
+            onSave({ amount, category, description, expense_date: date });
+            onClose();
+          }}
+        >
+          Save
+        </button>
       </div>
     </div>
   );
 }
-
 export default AddExpenseModal;
